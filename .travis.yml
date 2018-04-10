@@ -1,0 +1,26 @@
+language: go
+go:
+- '1.10'
+before_install:
+- go get github.com/mitchellh/gox
+- curl -L -s https://github.com/golang/dep/releases/download/v0.4.1/dep-linux-amd64
+  -o $GOPATH/bin/dep
+- chmod +x $GOPATH/bin/dep
+script:
+- dep ensure
+- go test
+- gox -os="linux darwin windows" -arch="amd64" -output="gollum-$TRAVIS_TAG.{{.OS}}.{{.Arch}}"
+  -ldflags "-X main.Version=$TRAVIS_TAG" -verbose
+- ls
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: RwSMPUZCT2j+OrOyEMaRahy5QIwNS113/opO5kHZWytM6hV3o+/rmnth77Ssy9Oy5lEr8nbjdnRRsNsOrqUajdmufT3G8eSyqjUu0FrWGzyijpMtR3ef56FCmqTdmJ6WfiCxlKLndcIKIFCFmzKG72jDD2xWtsEwTqIquLg976RceQoA2MmN94rVWt5ZgYuFQMjYsHRa/cdIfoAZU9NCilty9tEN9fqBbFxeyK2yNncYoNlA1t+SjRbTi2Ah7Eq190w1rj7A60ivKNP4DVFQJz0ax43pNcpPeCotqTSpX0N+sYomnj8XO3YOnwcb87OQw5dxWaXAfOOYBR+xZGIKQ/N5WqFEG5lEBcmdHakNCXfUAxvYpGNj/mGgKx8AToeUkRdxahIh0/szXLhq3GGlC6tRtlT6w4/vwN+kpMquxd9AEzn+7UGuNrejJrJ2j9s6j0sqUxdy/ymLBtiUF9M4dhx60OHZprvc4kUd2D8ANrANMTUQ71TRNsdyA8eFzk+Tpp6WSQoS8dMygW3z46T0kKnb7xiASyvANF8jFL/dtbMvTc/T5LmrLTblNOSYMUafW6qfWHUJLdzrWdGiYc4LKUqUsxh0ely/3ZTuNhVUHaPgdQ9MljGGCqnIwYFN6e72LNo4nNHaEqpLbtmagFoLgL/aoAE1G4ZQrIOg9ZUOeD0=
+  file:
+    - gollum-$TRAVIS_TAG.windows.amd64.exe
+    - gollum-$TRAVIS_TAG.darwin.amd64
+    - gollum-$TRAVIS_TAG.linux.amd64
+  on:
+    repo: jensendw/gollum
+    tags: true
