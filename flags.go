@@ -23,7 +23,7 @@ func (g GollumProvider) importFlags() (GollumClient, error) {
 	vaultkeypath := flag.String("vaultkeypath", "", "Vault path to key with secrets")
 	consulurl := flag.String("consulurl", "", "URL for consul cluster")
 	keypath := flag.String("keypath", "", "Path to consul key values for configuration")
-
+	version := flag.Bool("version", false, "prints current app version")
 	flag.Parse()
 
 	vaultGatekeeperURL := *gatekeeperurl
@@ -31,6 +31,7 @@ func (g GollumProvider) importFlags() (GollumClient, error) {
 	vaultKeyPath := *vaultkeypath
 	consulURL := *consulurl
 	consulKeyPath := *keypath
+	appVersion := *version
 
 	client := GollumClient{
 		vaultGatekeeperURL: vaultGatekeeperURL,
@@ -38,6 +39,7 @@ func (g GollumProvider) importFlags() (GollumClient, error) {
 		vaultKeyPath:       vaultKeyPath,
 		consulURL:          consulURL,
 		consulKeyPath:      consulKeyPath,
+		appVersion:         appVersion,
 	}
 
 	err := g.validateRequiredCLIArgs(client)
@@ -53,6 +55,11 @@ func (g GollumProvider) validateRequiredCLIArgs(flags GollumClient) error {
 	if len(os.Args) < 2 {
 		flag.PrintDefaults()
 		os.Exit(1)
+	}
+
+	if flags.appVersion {
+		fmt.Println(Version)
+		os.Exit(0)
 	}
 
 	if flags.vaultGatekeeperURL != "" && flags.vaultURL == "" {

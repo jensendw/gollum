@@ -12,6 +12,7 @@ type GollumClient struct {
 	vaultKeyPath       string
 	consulURL          string
 	consulKeyPath      string
+	appVersion         bool
 }
 
 //GollumProvider for passing funcs to interface
@@ -26,6 +27,9 @@ type Gollum interface {
 
 // This is used so we can test for stdout
 var out io.Writer = os.Stdout
+
+// Version should be set at build with -X main.Version 0.0.0
+var Version = "No version provided"
 
 func main() {
 	config := parseCLIArgs(GollumProvider{})
