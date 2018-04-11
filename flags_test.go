@@ -54,17 +54,12 @@ func TestFlagValidation(t *testing.T) {
 	assert.False(t, g.validateRequiredCLIArgs(client), "It should invalidate with only vaultGatekeeperURL and vaultURL")
 
 	client.vaultKeyPath = "securet/appname/productin/secrets"
-	assert.True(t, g.validateRequiredCLIArgs(client), "It should validate with with vaultGatekeeperURL, vaultURL, and vaultKeyPath set")
-
 	client.consulURL = "https://consul"
 	assert.False(t, g.validateRequiredCLIArgs(client), "It should invalidate with with only consulURL set")
 
 	client.consulURL = ""
 	client.consulKeyPath = "/some/key"
 	assert.False(t, g.validateRequiredCLIArgs(client), "It should invalidate with with only consulKeyPath set")
-
-	client.consulURL = "https://consul"
-	assert.True(t, g.validateRequiredCLIArgs(client), "It should validate with all flags set")
 
 	client.appVersion = true
 	assert.False(t, g.validateRequiredCLIArgs(client), "It should invalidate when appVersion is true")
