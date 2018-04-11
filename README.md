@@ -117,7 +117,7 @@ This will make the values within vault and consul available as environment varia
 4. go test
 
 ## Contributing
-1. Fork it ( https://github.com/jensendw/vault-gatekeeper-client )
+1. Fork it ( https://github.com/jensendw/gollum )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
