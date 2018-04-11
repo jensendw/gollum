@@ -42,45 +42,46 @@ func (g GollumProvider) importFlags() (GollumClient, error) {
 		appVersion:         appVersion,
 	}
 
-	err := g.validateRequiredCLIArgs(client)
-	if err != nil {
-		fmt.Println("some error with validateRequiredCLIargs")
+	validated := g.validateRequiredCLIArgs(client)
+	if validated != true {
+		flag.PrintDefaults()
+		os.Exit(1)
 	}
 
 	return client, nil
 }
 
-func (g GollumProvider) validateRequiredCLIArgs(flags GollumClient) error {
+func (g GollumProvider) validateRequiredCLIArgs(flags GollumClient) bool {
 	//make sure we have minimum amount of CLI arguments
 	if len(os.Args) < 2 {
-		flag.PrintDefaults()
-		os.Exit(1)
+		return false
 	}
 
 	if flags.appVersion {
 		fmt.Println(Version)
-		os.Exit(0)
+		return false
 	}
 
 	if flags.vaultGatekeeperURL != "" && flags.vaultURL == "" {
-		flag.PrintDefaults()
-		os.Exit(1)
+		return false
+
 	}
 
 	if flags.vaultGatekeeperURL == "" && flags.vaultURL != "" {
-		flag.PrintDefaults()
-		os.Exit(1)
+		return false
+	}
+
+	if flags.vaultGatekeeperURL != "" && flags.vaultURL != "" && flags.vaultKeyPath == "" {
+		return false
 	}
 
 	if flags.consulURL != "" && flags.consulKeyPath == "" {
-		flag.PrintDefaults()
-		os.Exit(1)
+		return false
 	}
 
 	if flags.consulURL == "" && flags.consulKeyPath != "" {
-		flag.PrintDefaults()
-		os.Exit(1)
+		return false
 	}
 
-	return nil
+	return true
 }

@@ -21,7 +21,7 @@ type GollumProvider struct {
 
 //Gollum interface
 type Gollum interface {
-	validateRequiredCLIArgs(gollum GollumClient) error
+	validateRequiredCLIArgs(gollum GollumClient) bool
 	importFlags() (GollumClient, error)
 }
 

@@ -25,21 +25,53 @@ func TestParseCLIArgs(t *testing.T) {
 }
 
 // need to fix this
-/*
+
 func TestFlagValidation(t *testing.T) {
-	oldArgs := os.Args
-	defer func() { os.Args = oldArgs }()
-	os.Args = []string{"cmd", "-consul=true", "-consulurl=https://consulurl", "-keypath=/some/path/to/keys", "-gatekeeper=true", "-gatekeeperurl=https://gatekeeperurl"}
+	/*
+		oldArgs := os.Args
+		defer func() { os.Args = oldArgs }()
+		os.Args = []string{"cmd", "-consulurl=https://consulurl", "-keypath=/some/path/to/keys", "-gatekeeperurl=https://gatekeeperurl", "-vaulturl=https://vaulturl:8200", "-vaultkeypath=secrets/someapp/someenv/secrets"}
+	*/
 	client := GollumClient{
-		vaultGatekeeperEnabled: false,
-		vaultGatekeeperURL:     "",
-		consulEnabled:          true,
-		consulURL:              "",
-		consulKeyPath:          "/some/path/to/keys",
+		vaultGatekeeperURL: "",
+		vaultURL:           "",
+		vaultKeyPath:       "",
+		consulURL:          "",
+		consulKeyPath:      "",
+		appVersion:         false,
 	}
 
 	g := &GollumProvider{}
-	err := g.validateRequiredCLIArgs(client)
-	assert.NotNil(t, err)
+	client.vaultURL = "https://vault:8200"
+
+	assert.False(t, g.validateRequiredCLIArgs(client), "It should invalidate with only vaultURL")
+
+	client.vaultURL = ""
+	client.vaultGatekeeperURL = "https://vault-gatekeeper"
+	assert.False(t, g.validateRequiredCLIArgs(client), "It should invalidate with only vaultGatekeeperURL")
+
+	client.vaultURL = "https://vault:8200"
+	assert.False(t, g.validateRequiredCLIArgs(client), "It should invalidate with only vaultGatekeeperURL and vaultURL")
+
+	client.vaultKeyPath = "securet/appname/productin/secrets"
+	assert.True(t, g.validateRequiredCLIArgs(client), "It should validate with with vaultGatekeeperURL, vaultURL, and vaultKeyPath set")
+
+	client.consulURL = "https://consul"
+	assert.False(t, g.validateRequiredCLIArgs(client), "It should invalidate with with only consulURL set")
+
+	client.consulURL = ""
+	client.consulKeyPath = "/some/key"
+	assert.False(t, g.validateRequiredCLIArgs(client), "It should invalidate with with only consulKeyPath set")
+
+	client.consulURL = "https://consul"
+	assert.True(t, g.validateRequiredCLIArgs(client), "It should validate with all flags set")
+
+	client.appVersion = true
+	assert.False(t, g.validateRequiredCLIArgs(client), "It should invalidate when appVersion is true")
+
+	//set < 2 os args
+	oldArgs := os.Args
+	defer func() { os.Args = oldArgs }()
+	os.Args = []string{"cmd"}
+	assert.False(t, g.validateRequiredCLIArgs(client), "It should invalidate when command line arguments are less than 2")
 }
-*/
