@@ -15,8 +15,13 @@ type FakeSecretsProvider struct {
 func (f FakeSecretsProvider) getSecrets() (map[string]interface{}, error) {
 	secretsMap := map[string]interface{}{
 		"KEY1": "FAKEVALUE1",
-		"KEY2": "FAKEVALUE2",
 	}
+
+	var keys []string
+	for k := range secretsMap {
+		keys = append(keys, k)
+	}
+
 	if f.Error == true {
 		return nil, errors.New("Unable to retrieve vault secrets")
 	}
@@ -39,7 +44,7 @@ func TestOutputSecrets(t *testing.T) {
 	defer func() { out = bak }()
 	fakeSecrets := FakeSecretsProvider{}
 	outputSecrets(fakeSecrets)
-	assert.Equal(t, "export KEY1=FAKEVALUE1\nexport KEY2=FAKEVALUE2\n", out.(*bytes.Buffer).String(), "outputSeccrets should return export for vault keys and values")
+	assert.Equal(t, "export KEY1=FAKEVALUE1\n", out.(*bytes.Buffer).String(), "outputSeccrets should return export for vault keys and values")
 
 }
 
