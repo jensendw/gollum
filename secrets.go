@@ -48,7 +48,11 @@ func (s SecretsProvider) getVaultTokenFromGatekeeper() (*string, error) {
 }
 
 func (s SecretsProvider) getSecrets() (map[string]interface{}, error) {
-	client, err := vaultapi.NewClient(nil)
+	clientConf := &vaultapi.Config{
+		Address: s.Config.vaultURL,
+	}
+
+	client, err := vaultapi.NewClient(clientConf)
 	if err != nil {
 		return nil, err
 	}

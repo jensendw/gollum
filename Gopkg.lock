@@ -2,10 +2,10 @@
 
 
 [[projects]]
+  branch = "master"
   name = "github.com/channelmeter/vault-gatekeeper-mesos"
   packages = ["gatekeeper"]
-  revision = "65687a3746cad53f0039ac039fff15c579c3f8bb"
-  version = "0.5.3"
+  revision = "30f4f6c7e5369da62c792e19a793c7d9db0ffae9"
 
 [[projects]]
   name = "github.com/davecgh/go-spew"
@@ -160,6 +160,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5e60ce36feed725c1702480269bc077483f61fcc0a16a589518f034e2cddca61"
+  inputs-digest = "9229346cacf710c3a031c781b885b63228a5446289ce6b87fcac5ce1431c6237"
   solver-name = "gps-cdcl"
   solver-version = 1
