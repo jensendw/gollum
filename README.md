@@ -13,7 +13,7 @@ You can find releases on the [releases page](https://github.com/jensendw/gollum/
 
 If I wanted to download this on a Mac I would do the following:
 ```shell
-wget https://github.com/jensendw/gollum/releases/download/0.0.1/gollum-0.0.1.darwin.amd64
+wget https://github.com/jensendw/gollum/releases/download/0.0.2/gollum-0.0.2.darwin.amd64
 mv gollum-0.0.1.darwin.amd64 gollum
 chmod 755 gollum
 ```
