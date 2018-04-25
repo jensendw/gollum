@@ -10,7 +10,7 @@ script:
 - dep ensure
 - go test
 - gox -os="linux darwin windows" -arch="amd64" -output="gollum-$TRAVIS_TAG.{{.OS}}.{{.Arch}}"
-  -ldflags "-X main.Version=$TRAVIS_TAG" -verbose
+  -ldflags "-X main.Version=$TRAVIS_TAG" -gcflags "CGO_ENABLED=0" -verbose
 - ls
 deploy:
   provider: releases
