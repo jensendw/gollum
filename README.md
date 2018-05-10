@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jensendw/gollum.svg?branch=master)](https://travis-ci.org/jensendw/gollum)
+[![Build Status](https://travis-ci.org/OrigamiLogic/gollum.svg?branch=master)](https://travis-ci.org/jensendw/gollum)
 
 # Gollum
 ![My Precious!](https://github.com/jensendw/gollum/raw/master/gollum.gif)
@@ -9,11 +9,11 @@ This is meant to be used as a temporary stop gap to doing this the right way whi
 
 ## Download
 
-You can find releases on the [releases page](https://github.com/jensendw/gollum/releases)
+You can find releases on the [releases page](https://github.com/OrigamiLogic/gollum/releases)
 
 If I wanted to download this on a Mac I would do the following:
 ```shell
-wget https://github.com/jensendw/gollum/releases/download/0.0.2/gollum-0.0.2.darwin.amd64
+wget https://github.com/OrigamiLogic/gollum/releases/download/0.0.2/gollum-0.0.2.darwin.amd64
 mv gollum-0.0.1.darwin.amd64 gollum
 chmod 755 gollum
 ```
@@ -111,13 +111,13 @@ source myvars
 This will make the values within vault and consul available as environment variables within your container.
 
 ## Development
-1. go get https://github.com/jensendw/gollum
-2. cd $GOPATH/src/github.com/jensendw/gollum
+1. go get https://github.com/OrigamiLogic/gollum
+2. cd $GOPATH/src/github.com/OrigamiLogic/gollum
 3. dep ensure
 4. go test
 
 ## Contributing
-1. Fork it ( https://github.com/jensendw/gollum )
+1. Fork it ( https://github.com/OrigamiLogic/gollum )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
