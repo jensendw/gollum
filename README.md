@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/OrigamiLogic/gollum.svg?branch=master)](https://travis-ci.org/jensendw/gollum)
+[![Build Status](https://travis-ci.org/OrigamiLogic/gollum.svg?branch=master)](https://travis-ci.org/OrigamiLogic/gollum)
 
 # Gollum
 ![My Precious!](https://github.com/jensendw/gollum/raw/master/gollum.gif)
